@@ -120,7 +120,7 @@ define dconf::settings (
   # `dconf update` doesn't return anything besides 0, so we have to figure out
   # if it was successful
   exec { "dconf update ${title}":
-    command     => '/bin/dconf update |& /bin/tee /dev/fd/2 | /bin/wc -c | /bin/grep ^0$',
+    command     => '/bin/bash -c "/bin/dconf update |& /bin/tee /dev/fd/2 | /bin/wc -c | /bin/grep ^0$"',
     logoutput   => true,
     umask       => '0033',
     refreshonly => true

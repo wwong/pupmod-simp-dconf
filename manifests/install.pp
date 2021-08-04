@@ -4,5 +4,10 @@
 class dconf::install {
   assert_private()
 
-  ensure_packages( 'dconf', { 'ensure' => $dconf::package_ensure } )
+  $packagename = $facts['os']['family'] ? {
+    'Debian' => 'dconf-cli',
+    default  => 'dconf',
+  }
+
+  ensure_packages( $packagename, { 'ensure' => $dconf::package_ensure } )
 }
